@@ -8,6 +8,6 @@ spec:
     image: nginx
     ports:
     - containerPort: 80
-  - name: mongo
-    image: docker.io/mongo
-    
+  - name: debian 
+    image: debian
+    command: ["sleep", "60"]  
