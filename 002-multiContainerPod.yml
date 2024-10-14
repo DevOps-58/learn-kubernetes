@@ -11,3 +11,24 @@ spec:
   - name: debian 
     image: debian
     command: ["sleep", "60"]  
+
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sample-pod
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+
+--- 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: http-pod
+spec:
+  containers:
+  - name: httpd
+    image: httpd
