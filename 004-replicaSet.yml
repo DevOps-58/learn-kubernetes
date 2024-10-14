@@ -12,3 +12,9 @@ spec:
       tier: frontend 
   template:
     metadata: 
+      labels:
+        tier: frontend
+    spec:
+      containers:
+      - name: nginx
+        image: docker.io/nginx:pearl
