@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: frontend
-  labels:                       # Labels for the replicaSet
+  labels:                      # Labels for the replicaSet
     tier: frontend
 spec:
   # modify replicas according to your case
@@ -12,9 +12,9 @@ spec:
       tier: frontend 
   template:
     metadata: 
-      labels:
+      labels:                 # Labels for the pods created by the replicaSet
         tier: frontend
     spec:
       containers:
       - name: nginx
-        image: docker.io/nginx:pearl
+        image: docker.io/nginx:otel
