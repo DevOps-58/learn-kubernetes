@@ -2,8 +2,7 @@ apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: frontend
-  labels:           
-    app: guestbook           # Labels for the replicaSet
+  labels:                       # Labels for the replicaSet
     tier: frontend
 spec:
   # modify replicas according to your case
