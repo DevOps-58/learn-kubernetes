@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: print-greeting
+spec:
+  containers:
+  - name: env-print-demo
+    image: nginx
+    env:
+    - name: GREETING
+      value: "Warm greetings to"
+    - name: HONORIFIC
+      value: "The Most Honorable"
+    - name: TOPIC
+      value: "Kubernetes"
+    - name: Config
+      value: "map"
+    - name: SAMP
+      value: "debug"
+
+--- 
+# ConfigMap 
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: game-demo
+data:
+  # property-like keys; each key maps to a simple value
+  player_initial_lives: "3"
+  ui_properties_file_name: "user-interface.properties"
+
+  # file-like keys
+  game.properties: |
+    enemy.types=aliens,monsters
+    player.maximum-lives=5    
+  user-interface.properties: |
+    color.good=purple
+    color.bad=yellow
+    allow.textmode=true 
+--- 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: game-pod
+spec:
+  containers:
+    - name: app
+      image: docker.io/nginx:latest
+      envFrom:
+        - configMapRef:
+            name: game-demo
