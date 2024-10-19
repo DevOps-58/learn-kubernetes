@@ -1,0 +1,24 @@
+### Job resource in kubernetes
+# 1) You want some task should be executed at some time every day [ we can create a job and schedule it ]
+# 2) We are internsted to load the schema every day 10 AM  [  we can create a job ]
+# 3) I want some pod should run to send email for every 1hr.
+
+# JOB: This is also a kubernetes wrapper, that provision a pod to execute some task and then goes to completed state and not like regular pods that runs forever.
+# Deleting a Job will clean up the Pods it created.
+# Suspending a Job will delete its active Pods until the Job is resumed again.
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pi
+spec:
+  template:
+    spec:
+      containers:
+      - name: pi
+        image: perl:5.34.0
+        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+      restartPolicy: Never
+  backoffLimit: 4              # During the job execution, if it fails how many times does this have to retry
+
+# Job ---> Creates a pod ---> Runs the task ---> Goes for completed state.
