@@ -1,0 +1,84 @@
+# When quotas are defined in a namespace, pods/deployments should have limits & requests defined. If not, resources won't be created
+
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: quota-demo-cpu-mem-count
+  namespace: expense
+spec:
+  hard:
+    pods: "2"
+    requests.cpu: "500"
+    requests.memory: "5Gi"
+    limits.cpu: "600"
+    limits.memory: "10Gi"
+
+--- 
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug-001
+  namespace: expense
+  labels:                      # Labels for the replicaSet
+    tier: frontend
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+
+--- 
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug-002
+  namespace: expense
+  labels:                      # Labels for the replicaSet
+    tier: frontend
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+
+--- 
+# This will not be schedule as we would be reaching the limit
+# Error from server (Forbidden): error when creating "017-quota.yml": pods "debug-003" is forbidden: exceeded quota: quota-demo-cpu-mem-count, requested: pods=1, used: pods=2, limited: pods=2
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug-003
+  namespace: expense
+  labels:                      # Labels for the replicaSet
+    tier: frontend
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
