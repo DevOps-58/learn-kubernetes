@@ -1,7 +1,9 @@
+# Node Scheduler
+
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx-pod
+  name: exp-pod
 spec:
   containers:
   - name: nginx
@@ -10,7 +12,6 @@ spec:
     - containerPort: 80
   nodeSelector:
     disktype: ssd
-
 --- 
 apiVersion: apps/v1
 kind: Deployment
