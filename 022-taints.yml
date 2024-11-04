@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taints-deployment
+  labels:
+    app: taints
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: taints
+  template:
+    metadata:
+      labels:
+        app: taints
+    spec:
+      containers:
+      - name: taints
+        image: docker.io/nginx:perl
+        ports:
+        - containerPort: 80
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2 
+
+# --- 
+# ### Workload with toleration
+# ### The pods of this deployment can be scheduled on any of the nodes of the cluster that also has taints on the node with the effect NoSchedule ( app=expense )
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: tolerate-deployment
+#   labels:
+#     app: tolerate
+# spec:
+#   replicas: 3
+#   selector:
+#     matchLabels:
+#       app: tolerate
+#   template:
+#     metadata:
+#       labels:
+#         app: tolerate
+#     spec:
+#       containers:
+#       - name: tolerate
+#         image: docker.io/nginx:perl
+#         ports:
+#         - containerPort: 80
+#       tolerations:
+#       - effect: NoSchedule
+#         key: app
+#         operator: Equal
+#         value: expense
+#   strategy:
+#     type: RollingUpdate
+#     rollingUpdate:
+#       maxUnavailable: 2 
