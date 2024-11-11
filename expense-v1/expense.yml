@@ -14,8 +14,8 @@ spec:
   containers:
   - name: frontend
     image: docker.io/girisha12/expense-frontend
-    # ports:
-    # - containerPort: 80
+    ports:
+    - containerPort: 80
 
 --- 
 apiVersion: v1
