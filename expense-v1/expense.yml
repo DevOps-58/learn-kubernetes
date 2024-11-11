@@ -31,3 +31,38 @@ spec:
         port: 80                 # service listens on 80 
         targetPort: 80           # requests received by this service will be forwareded to pods port 
   
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: backend
+  labels:                      
+    tier: backend
+spec:
+  containers:
+  - name: backend
+    image: docker.io/girisha12/expense-backend
+    ports:
+    - containerPort: 8080
+    env: 
+     - name: DB_HOST
+       value: mysql-svc 
+
+
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-svc
+spec:
+  type: ClusterIP
+  selector:
+    tier: backend
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080                 # service listens on 8080 
+      targetPort: 8080           # requests received by this service will be forwareded to pods port 
+
+
