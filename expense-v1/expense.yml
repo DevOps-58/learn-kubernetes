@@ -45,11 +45,7 @@ spec:
     image: docker.io/girisha12/expense-backend
     ports:
     - containerPort: 8080
-    env: 
-     - name: DB_HOST
-       value: mysql-svc 
-
-
+    
 --- 
 apiVersion: v1
 kind: Service
