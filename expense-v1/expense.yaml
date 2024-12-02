@@ -102,7 +102,7 @@ metadata:
   labels:                      
     tier: frontend
 spec:
-  containers:
+ containers:
   - name: frontend
     image: docker.io/girisha12/expense-frontend
     # ports:
