@@ -1,8 +1,0 @@
-appName: backend
-port: 8080
-
-serviceType: ClusterIP
-servicePort: 8080
-
-replicas: 1
-
