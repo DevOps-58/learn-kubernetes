@@ -45,7 +45,7 @@ spec:
     spec:
       containers:
       - name: schema-loader
-        image: docker.io/girisha12/expense-schema-loader
+        image: docker.io/sanraman/expense-schema-loader
         env: 
         - name: app_repo
           value: "https://github.com/expenseapp-001/expense-backend.git"
@@ -102,7 +102,7 @@ metadata:
   labels:                      
     tier: frontend
 spec:
- containers:
+  containers:
   - name: frontend
     image: docker.io/girisha12/expense-frontend
     # ports:
